@@ -102,6 +102,11 @@ st.markdown("""
   section[data-testid="stSidebar"] { background: #0b1424; }
   section[data-testid="stSidebar"] * { color: #cbd5e1 !important; }
 
+  /* Hide GitHub icon */
+  .css-1jc7ptx, .css-1rs6yo7,
+  [data-testid="stToolbar"] { display: none !important; }
+  header[data-testid="stHeader"] a[href*="github"] { display: none !important; }
+
   /* Code / mono spans */
   code { background: #1e293b; border-radius: 4px; padding: 2px 6px;
          font-family: 'IBM Plex Mono', monospace; font-size: 0.8em; color: #f59e0b; }
@@ -184,7 +189,8 @@ with st.sidebar:
     st.markdown("**Project Details**")
     st.markdown("- Subject Code: `DA-304T`")
     st.markdown("- Semester: `6`")
-    st.markdown("**Team:**\n- Arpit Rawat\n- Amit Saini\n- Shubham")
+    st.markdown("- Class: `MLDA / AIML-4 / AIML-5`")
+    st.markdown("- Submission: `31 Mar 2026`")
     st.markdown("- Group Size: `3`")
     st.markdown("---")
     st.markdown("**Dataset Source**")
