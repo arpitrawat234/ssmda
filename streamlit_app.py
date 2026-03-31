@@ -26,6 +26,10 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+/* Hide GitHub fork button & icon */
+.stAppDeployButton {display: none !important;}
+#GithubIcon {display: none !important;}
+a[href*="github"] {display: none !important;}
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
 
   html, body, [class*="css"] {
