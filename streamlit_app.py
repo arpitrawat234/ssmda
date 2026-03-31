@@ -139,7 +139,7 @@ st.markdown("""
 <div class="mait-header">
   <h1>📊 Stock Market Analysis & Prediction Tool</h1>
   <p>MAHARAJA AGRASEN INSTITUTE OF TECHNOLOGY &nbsp;|&nbsp; DA-304T Statistics, Statistical Modelling & Data Analytics
-     &nbsp;|&nbsp; Semester 6 &nbsp;|&nbsp;</p>
+     &nbsp;|&nbsp; Semester 6 &nbsp;|&nbsp; AY 2025-26</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -153,8 +153,9 @@ with st.sidebar:
     st.markdown("**Project Details**")
     st.markdown("- Subject Code: `DA-304T`")
     st.markdown("- Semester: `6`")
-    st.markdown("- Class: `MLDA-II-C")
-    st.markdown("Team : Arpit Rawat(065) , Amit Saini(607), Shubham(606)")
+    st.markdown("- Class: `MLDA / AIML-4 / AIML-5`")
+    st.markdown("- Submission: `31 Mar 2026`")
+    st.markdown("- Group Size: `3`")
     st.markdown("---")
     st.markdown("**Dataset Source**")
     st.markdown("[Kaggle – Stock Market Dataset](https://www.kaggle.com/datasets/jacksoncrow/stockmarket-dataset)")
@@ -291,8 +292,8 @@ with col_c:
         patch_artist=True,
         medianprops=dict(color='#0f172a', linewidth=2)
     )
-    bp['boxes'][0]['facecolor'] = EMERALD; bp['boxes'][0]['alpha'] = 0.7
-    bp['boxes'][1]['facecolor'] = ROSE;    bp['boxes'][1]['alpha'] = 0.7
+    bp['boxes'][0].set_facecolor(EMERALD); bp['boxes'][0].set_alpha(0.7)
+    bp['boxes'][1].set_facecolor(ROSE);    bp['boxes'][1].set_alpha(0.7)
     ax4.set_title("Volume Distribution — Up vs Down Days", fontweight='bold')
     ax4.set_ylabel("Volume (Millions)")
     fig4.tight_layout()
