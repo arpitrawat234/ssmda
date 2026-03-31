@@ -144,11 +144,42 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
+# Pre-loaded stocks from GitHub repo
+# ─────────────────────────────────────────────
+import io, requests
+
+PRELOADED_STOCKS = {
+    "AAPL – Apple Inc.":       "https://raw.githubusercontent.com/arpitrawat234/ssmda/main/AAPL.csv",
+    "AMZN – Amazon.com Inc.":  "https://raw.githubusercontent.com/arpitrawat234/ssmda/main/AMZN.csv",
+    "GOOGL – Alphabet Inc.":   "https://raw.githubusercontent.com/arpitrawat234/ssmda/main/GOOGL.csv",
+    "MSFT – Microsoft Corp.":  "https://raw.githubusercontent.com/arpitrawat234/ssmda/main/MSFT.csv",
+}
+
+# ─────────────────────────────────────────────
 # Sidebar
 # ─────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("### 📂 Upload Dataset")
-    uploaded_file = st.file_uploader("Historical Stock CSV (Kaggle format)", type=["csv"])
+    st.markdown("### 📂 Data Source")
+    data_source = st.radio(
+        "Choose how to load data:",
+        ["📊 Use a pre-loaded stock", "📁 Upload my own CSV"],
+        index=0
+    )
+
+    selected_stock = None
+    uploaded_file  = None
+
+    if data_source == "📊 Use a pre-loaded stock":
+        selected_stock = st.selectbox(
+            "Select a stock:",
+            list(PRELOADED_STOCKS.keys()),
+            index=0
+        )
+        st.caption("✅ Data fetched directly from the course GitHub repo — no upload needed.")
+    else:
+        uploaded_file = st.file_uploader("Historical Stock CSV (Kaggle format)", type=["csv"])
+        st.caption("Expected columns: `Date`, `Open`, `High`, `Low`, `Close`, `Adj Close`, `Volume`")
+
     st.markdown("---")
     st.markdown("**Project Details**")
     st.markdown("- Subject Code: `DA-304T`")
@@ -160,18 +191,32 @@ with st.sidebar:
     st.markdown("**Dataset Source**")
     st.markdown("[Kaggle – Stock Market Dataset](https://www.kaggle.com/datasets/jacksoncrow/stockmarket-dataset)")
 
-if not uploaded_file:
-    st.info("👈 Upload a historical stock CSV from the sidebar to begin the full analysis.")
-    st.markdown("""
-    **Expected CSV columns:** `Date`, `Open`, `High`, `Low`, `Close`, `Adj Close`, `Volume`  
-    All three project phases will be executed automatically once the file is uploaded.
-    """)
-    st.stop()
-
 # ─────────────────────────────────────────────
 # Load & Validate Data
 # ─────────────────────────────────────────────
-df = pd.read_csv(uploaded_file, parse_dates=['Date'])
+df         = None
+stock_name = None
+
+if data_source == "📊 Use a pre-loaded stock":
+    url = PRELOADED_STOCKS[selected_stock]
+    try:
+        with st.spinner(f"Fetching {selected_stock} data from GitHub…"):
+            resp = requests.get(url, timeout=15)
+            resp.raise_for_status()
+        df         = pd.read_csv(io.StringIO(resp.text), parse_dates=['Date'])
+        stock_name = selected_stock.split("–")[0].strip()
+    except Exception as e:
+        st.error(f"❌ Could not fetch data: {e}")
+        st.stop()
+
+else:
+    if not uploaded_file:
+        st.info("👈 Select a pre-loaded stock **or** upload your own CSV from the sidebar.")
+        st.markdown("**Expected columns:** `Date`, `Open`, `High`, `Low`, `Close`, `Adj Close`, `Volume`")
+        st.stop()
+    df         = pd.read_csv(uploaded_file, parse_dates=['Date'])
+    stock_name = uploaded_file.name.split('.')[0].upper()
+
 df.sort_values('Date', inplace=True)
 df.reset_index(drop=True, inplace=True)
 
@@ -180,8 +225,6 @@ missing = required_cols - set(df.columns)
 if missing:
     st.error(f"Missing columns: {missing}")
     st.stop()
-
-stock_name = uploaded_file.name.split('.')[0].upper()
 st.markdown(f"### 📈 Ticker: `{stock_name}`  |  Rows loaded: `{len(df):,}`  |  Date range: `{df['Date'].min().date()}` → `{df['Date'].max().date()}`")
 
 # ═══════════════════════════════════════════════════════════════
