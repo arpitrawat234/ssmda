@@ -153,7 +153,7 @@ with st.sidebar:
     st.markdown("**Project Details**")
     st.markdown("- Subject Code: `DA-304T`")
     st.markdown("- Semester: `6`")
-    st.markdown("- Class: `MLDA-II-C)
+    st.markdown("- Class: `MLDA-II-C")
     st.markdown("Team : Arpit Rawat(065) , Amit Saini(607), Shubham(606)")
     st.markdown("---")
     st.markdown("**Dataset Source**")
