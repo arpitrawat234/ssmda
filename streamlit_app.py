@@ -116,7 +116,6 @@ plt.rcParams.update({
     'axes.facecolor':    '#1e293b',
     'axes.edgecolor':    '#334155',
     'axes.labelcolor':   '#cbd5e1',
-    'axes.titlecolor':   '#f8fafc',
     'xtick.color':       '#64748b',
     'ytick.color':       '#64748b',
     'grid.color':        '#334155',
@@ -125,7 +124,6 @@ plt.rcParams.update({
     'text.color':        '#cbd5e1',
     'legend.facecolor':  '#1e293b',
     'legend.edgecolor':  '#334155',
-    'figure.titlecolor': '#f8fafc',
     'font.family':       'monospace',
 })
 AMBER   = '#f59e0b'
