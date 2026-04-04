@@ -64,7 +64,7 @@
 
 * Python, Pandas, NumPy
 * Matplotlib / Seaborn for visualization
-* Scikit-learn or Statsmodels for regression and logistic regression
+* Scikit-learn for regression and logistic regression
 
 ---
 
